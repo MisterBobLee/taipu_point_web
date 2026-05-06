@@ -10,8 +10,19 @@ import router from "./router";
 
 document.documentElement.classList.add('dark');
 
-const app = createApp(App);
-app.use(createPinia());
-app.use(router);
-app.use(ElementPlus);
-app.mount("#app");
+async function prepareApp() {
+  if (import.meta.env.DEV) {
+    const { worker } = await import('./mocks/browser')
+    return worker.start({
+      onUnhandledRequest: 'bypass',
+    })
+  }
+}
+
+prepareApp().then(() => {
+  const app = createApp(App)
+  app.use(createPinia())
+  app.use(router)
+  app.use(ElementPlus)
+  app.mount('#app')
+})

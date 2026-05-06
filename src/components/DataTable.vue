@@ -60,7 +60,7 @@ defineProps({
 function formatDate(val) {
   if (!val) return "-";
   const date = new Date(val);
-  if (isNaN(date.getTime())) return val; // 如果不是有效日期就原樣回傳
+  if (isNaN(date.getTime())) return val;
   
   const y = date.getFullYear();
   const m = String(date.getMonth() + 1).padStart(2, '0');
