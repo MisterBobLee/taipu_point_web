@@ -59,6 +59,10 @@ import ProductCard from "../../components/ProductCard.vue";
 import DataTable from "../../components/DataTable.vue";
 import FormDialog from "../../components/FormDialog.vue";
 
+const exchangeDialogVisible = ref(false);
+const selectedProduct = ref(null);
+const submitting = ref(false);
+
 const exchangeCols = [
   { prop: "exchange_code", label: "兌換序號", width: "200" },
   { type: "product", label: "商品" },
@@ -78,9 +82,22 @@ const exchangeForm = ref({
   quantity: 1
 });
 
-const exchangeFields = [
-  { label: '兌換數量', prop: 'quantity', type: 'number', attrs: { min: 1, max: 5 } }
-];
+const exchangeFields = computed(() => {
+  const stock = selectedProduct.value?.stock ?? 0;
+  const maxQuantity = Math.min(5, stock);
+
+  return [
+    { 
+      label: '兌換數量', 
+      prop: 'quantity', 
+      type: 'number', 
+      attrs: { 
+        min: 1, 
+        max: maxQuantity > 0 ? maxQuantity : 1
+      } 
+    }
+  ];
+});
 
 const totalPoints = computed(() => {
   return (selectedProduct.value?.required_points || 0) * exchangeForm.value.quantity;
@@ -104,10 +121,6 @@ const loadExchanges = async () => {
 const loadTransactions = async () => {
   transactions.value = await listMyTransactions();
 };
-
-const exchangeDialogVisible = ref(false);
-const selectedProduct = ref(null);
-const submitting = ref(false);
 
 function handleExchange(product) {
   selectedProduct.value = product;

@@ -108,7 +108,7 @@ export const handlers = [
     const { product_id, quantity } = await request.json()
     const product = db.products.find(p => p.id === product_id)
     const cost = product.required_points * quantity
-    if (product && product.stock >= quantity && user.balance >= cost) {
+    if (product && product.stock >= quantity && quantity <= 5 && user.balance >= cost) {
       product.stock -= quantity
       user.balance -= cost
       
