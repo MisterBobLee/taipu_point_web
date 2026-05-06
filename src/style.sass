@@ -1,0 +1,67 @@
+:root
+  --el-font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif
+
+
+html, body, #app
+  font-family: var(--el-font-family)
+
+.page
+  height: calc(100vh - 16px)
+  display: flex
+  flex-direction: column
+  box-sizing: border-box
+  padding: 16px
+  overflow: hidden
+  background: linear-gradient(135deg, #121212 0%, #1a1a2e 100%)
+
+.bar
+  display: flex
+  gap: 10px
+  align-items: center
+  flex-wrap: wrap
+  margin-bottom: 12px
+
+.grow
+  flex: 1 1 220px
+  min-width: 220px
+
+.el-tabs
+  flex: 1
+  display: flex
+  flex-direction: column
+  min-height: 0
+
+.el-tabs__content
+  flex: 1
+  display: flex
+  flex-direction: column
+  min-height: 0
+  padding: 15px !important
+
+.el-tab-pane
+  height: 100%
+  display: flex
+  flex-direction: column
+
+.data-table-container
+  flex: 1
+  min-height: 0
+
+.el-tabs--border-card
+  background: transparent !important
+  border: none !important
+  .el-tabs__header
+    background: rgba(255, 255, 255, 0.05) !important
+    border-bottom: 1px solid #333 !important
+  .el-tabs__content
+    background: transparent !important
+
+::-webkit-scrollbar
+  width: 8px
+::-webkit-scrollbar-track
+  background: #121212
+::-webkit-scrollbar-thumb
+  background: #333
+  border-radius: 4px
+  &:hover
+    background: #444
