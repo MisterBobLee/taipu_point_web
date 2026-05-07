@@ -135,7 +135,6 @@ async function doLookup() {
       exRows.value = [data];
     }
   } catch (e) {
-    ElMessage.error(e?.response?.data?.detail || "查詢失敗");
   }
 }
 

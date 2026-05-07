@@ -30,8 +30,10 @@ http.interceptors.response.use(
     const originalRequest = error.config;
 
     const isLoginRequest = originalRequest.url.includes("/api/auth/token/");
-    if (isLoginRequest || (error.response?.status !== 401)) {
+    if (isLoginRequest) {
       ElMessage.error('帳號或密碼錯誤');
+    } else if (error.response?.status !== 401) {
+      ElMessage.error(error.response?.data?.detail || "系統錯誤");
     }
     if (
       !isLoginRequest &&
